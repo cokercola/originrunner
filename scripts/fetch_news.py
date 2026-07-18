@@ -8,6 +8,7 @@ import json
 import re
 from datetime import datetime, timezone
 from time import mktime
+from urllib.parse import urljoin
 
 import feedparser
 
@@ -29,32 +30,39 @@ def clean_excerpt(summary):
 
 
 def get_image(entry):
+    image = None
     if getattr(entry, "media_content", None):
-        return entry.media_content[0].get("url")
-    if getattr(entry, "media_thumbnail", None):
-        return entry.media_thumbnail[0].get("url")
-    for link in getattr(entry, "links", []):
-        if link.get("type", "").startswith("image"):
-            return link.get("href")
+        image = entry.media_content[0].get("url")
+    elif getattr(entry, "media_thumbnail", None):
+        image = entry.media_thumbnail[0].get("url")
+    else:
+        for link in getattr(entry, "links", []):
+            if link.get("type", "").startswith("image"):
+                image = link.get("href")
+                break
+        if not image:
+            for link in getattr(entry, "links", []):
+                if link.get("rel") == "enclosure" and link.get("type", "").startswith("image"):
+                    image = link.get("href")
+                    break
+        if not image:
+            html_blobs = []
+            if entry.get("summary"):
+                html_blobs.append(entry.get("summary"))
+            if entry.get("content"):
+                for c in entry.get("content"):
+                    if c.get("value"):
+                        html_blobs.append(c.get("value"))
+            for blob in html_blobs:
+                match = re.search(r'<img[^>]+src="([^"]+)"', blob)
+                if match:
+                    image = match.group(1)
+                    break
 
-    for link in getattr(entry, "links", []):
-        if link.get("rel") == "enclosure" and link.get("type", "").startswith("image"):
-            return link.get("href")
+    if image and entry.get("link"):
+        image = urljoin(entry.get("link"), image)
 
-    html_blobs = []
-    if entry.get("summary"):
-        html_blobs.append(entry.get("summary"))
-    if entry.get("content"):
-        for c in entry.get("content"):
-            if c.get("value"):
-                html_blobs.append(c.get("value"))
-
-    for blob in html_blobs:
-        match = re.search(r'<img[^>]+src="([^"]+)"', blob)
-        if match:
-            return match.group(1)
-
-    return None
+    return image
 
 
 def main():
