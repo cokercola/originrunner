@@ -8,7 +8,7 @@ import json
 import re
 from datetime import datetime, timezone
 from time import mktime
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse, quote
 
 import feedparser
 import requests
@@ -92,6 +92,23 @@ def get_image_from_page(article_url):
     return None
 
 
+def proxy_image(url):
+    """
+    Route the image through images.weserv.nl, a free image proxy.
+    This fetches the image server-side and re-serves it with proper headers,
+    which avoids browser-side blocking (hotlink protection, ORB, etc.) that
+    happens when embedding images directly from another site.
+    """
+    if not url:
+        return url
+    parsed = urlparse(url)
+    domain_and_path = parsed.netloc + parsed.path
+    if parsed.query:
+        domain_and_path += "?" + parsed.query
+    prefix = "ssl:" if parsed.scheme == "https" else ""
+    return "https://images.weserv.nl/?url=" + quote(prefix + domain_and_path, safe=":/")
+
+
 def main():
     items = []
     for feed in FEEDS:
@@ -136,6 +153,7 @@ def main():
     for item in items:
         if not item["image"] and item["link"] != "#":
             item["image"] = get_image_from_page(item["link"])
+        item["image"] = proxy_image(item["image"])
 
     output = {"updated": datetime.now(timezone.utc).isoformat(), "items": items}
 
