@@ -20,8 +20,13 @@ FEEDS = [
 ]
 
 MAX_ITEMS = 4
+MAX_PER_SOURCE = 2
 EXCERPT_LEN = 160
-REQUEST_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; OriginRunnerBot/1.0)"}
+REQUEST_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 
 
 def clean_excerpt(summary):
@@ -112,7 +117,20 @@ def main():
             )
 
     items.sort(key=lambda x: x["timestamp"], reverse=True)
-    items = items[:MAX_ITEMS]
+
+    # Cap how many any single source can contribute so the list isn't dominated
+    # by whichever feed happens to post most frequently
+    per_source_count = {}
+    diverse_items = []
+    for item in items:
+        count = per_source_count.get(item["source"], 0)
+        if count < MAX_PER_SOURCE:
+            diverse_items.append(item)
+            per_source_count[item["source"]] = count + 1
+        if len(diverse_items) >= MAX_ITEMS:
+            break
+
+    items = diverse_items[:MAX_ITEMS]
 
     # Only hit the network for full pages on the handful of items we're actually keeping
     for item in items:
