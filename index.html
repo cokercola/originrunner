@@ -144,11 +144,11 @@
     </div>
   </div>
 
-  
   <div id="news-list">
     <p style="font-size:13px; color:var(--text-muted);">Loading latest headlines&hellip;</p>
   </div>
 </section>
+
 
 <section class="section alt">
   <div class="section-header">
@@ -417,7 +417,7 @@
       }
       list.innerHTML = data.items.map(function (item) {
         var thumb = item.image
-          ? '<img src="' + item.image + '" alt="">'
+          ? '<img src="' + item.image + '" alt="" onerror="this.remove()">'
           : '';
         return (
           '<div class="news-item">' +
