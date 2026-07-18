@@ -11,6 +11,7 @@ from time import mktime
 from urllib.parse import urljoin
 
 import feedparser
+import requests
 
 FEEDS = [
     {"url": "https://runblogrun.com/feed", "source": "RunBlogRun", "color": "#85B7EB"},
@@ -20,6 +21,7 @@ FEEDS = [
 
 MAX_ITEMS = 4
 EXCERPT_LEN = 160
+REQUEST_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; OriginRunnerBot/1.0)"}
 
 
 def clean_excerpt(summary):
@@ -29,7 +31,8 @@ def clean_excerpt(summary):
     return text
 
 
-def get_image(entry):
+def get_image_from_feed(entry):
+    """Look for an image already embedded in the RSS entry itself (fast, no extra request)."""
     image = None
     if getattr(entry, "media_content", None):
         image = entry.media_content[0].get("url")
@@ -65,6 +68,25 @@ def get_image(entry):
     return image
 
 
+def get_image_from_page(article_url):
+    """Fall back to visiting the article and reading its og:image meta tag."""
+    try:
+        resp = requests.get(article_url, headers=REQUEST_HEADERS, timeout=10)
+        resp.raise_for_status()
+        match = re.search(
+            r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', resp.text
+        )
+        if not match:
+            match = re.search(
+                r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"', resp.text
+            )
+        if match:
+            return urljoin(article_url, match.group(1))
+    except requests.RequestException:
+        pass
+    return None
+
+
 def main():
     items = []
     for feed in FEEDS:
@@ -85,12 +107,17 @@ def main():
                     "source_color": feed["color"],
                     "date": pub_dt.strftime("%b %d, %Y").upper(),
                     "timestamp": pub_dt.isoformat(),
-                    "image": get_image(entry),
+                    "image": get_image_from_feed(entry),
                 }
             )
 
     items.sort(key=lambda x: x["timestamp"], reverse=True)
     items = items[:MAX_ITEMS]
+
+    # Only hit the network for full pages on the handful of items we're actually keeping
+    for item in items:
+        if not item["image"] and item["link"] != "#":
+            item["image"] = get_image_from_page(item["link"])
 
     output = {"updated": datetime.now(timezone.utc).isoformat(), "items": items}
 
