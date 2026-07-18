@@ -156,40 +156,8 @@
     </div>
   </div>
 
-  <div class="news-item">
-    <div class="news-thumb"></div>
-    <div>
-      <div class="news-meta">
-        <span class="news-date">JUL 14, 2026 · CROSS COUNTRY</span>
-        <span class="news-source" style="background:#85B7EB33;">via LetsRun</span>
-      </div>
-      <h3>NCAA previews: the teams to watch this fall</h3>
-      <p class="excerpt">Early-season time trials point to a wide-open women's title race this year.</p>
-    </div>
-  </div>
-
-  <div class="news-item">
-    <div class="news-thumb"></div>
-    <div>
-      <div class="news-meta">
-        <span class="news-date">JUL 12, 2026 · ULTRA</span>
-        <span class="news-source" style="background:#97C45933;">via iRunFar</span>
-      </div>
-      <h3>Western States champion breaks down her final 20 miles</h3>
-      <p class="excerpt">A conservative first half and a mid-race fueling reset led to a course-record close.</p>
-    </div>
-  </div>
-
-  <div class="news-item">
-    <div class="news-thumb"></div>
-    <div>
-      <div class="news-meta">
-        <span class="news-date">JUL 10, 2026 · ROAD</span>
-        <span class="news-source" style="background:#F0997B33;">via Citius Mag</span>
-      </div>
-      <h3>Marathon major announces new elite pacing structure</h3>
-      <p class="excerpt">Organizers are adding a dedicated sub-2:10 pace group after last year's chaotic splits.</p>
-    </div>
+  <div id="news-list">
+    <p style="font-size:13px; color:var(--text-muted);">Loading latest headlines&hellip;</p>
   </div>
 </section>
 
@@ -443,6 +411,44 @@
   document.getElementById("distance-select").addEventListener("change", function (e) {
     updateWorldRecord(e.target.value);
   });
+
+  function escapeHtml(str) {
+    var div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  fetch("data/news.json")
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var list = document.getElementById("news-list");
+      if (!data.items || data.items.length === 0) {
+        list.innerHTML = '<p style="font-size:13px; color:var(--text-muted);">No headlines available right now. Check back soon.</p>';
+        return;
+      }
+      list.innerHTML = data.items.map(function (item) {
+        var thumb = item.image
+          ? '<img src="' + item.image + '" alt="">'
+          : '';
+        return (
+          '<div class="news-item">' +
+            '<div class="news-thumb">' + thumb + '</div>' +
+            '<div>' +
+              '<div class="news-meta">' +
+                '<span class="news-date">' + escapeHtml(item.date) + '</span>' +
+                '<span class="news-source" style="background:' + item.source_color + '33;">via ' + escapeHtml(item.source) + '</span>' +
+              '</div>' +
+              '<h3><a href="' + item.link + '" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">' + escapeHtml(item.title) + '</a></h3>' +
+              '<p class="excerpt">' + escapeHtml(item.excerpt) + '</p>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+    })
+    .catch(function () {
+      var list = document.getElementById("news-list");
+      list.innerHTML = '<p style="font-size:13px; color:var(--text-muted);">Couldn\'t load the latest headlines. Check back soon.</p>';
+    });
 </script>
 
 </body>
