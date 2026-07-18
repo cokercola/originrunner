@@ -95,23 +95,32 @@
   <div class="world-record-inner">
     <div class="world-record-header">
       <label for="distance-select" id="world-record-label" class="world-record-label">World record lookup</label>
-      <select class="world-record-select" id="distance-select" name="distance" aria-label="Select running distance">
-        <option value="5000">5000m</option>
-        <option value="10000">10000m</option>
+      <select class="world-record-select" id="distance-select" name="distance" aria-label="Select an event">
+        <option value="100m">100m</option>
+        <option value="200m">200m</option>
+        <option value="400m">400m</option>
+        <option value="800m">800m</option>
+        <option value="1500m">1500m</option>
+        <option value="mile">Mile</option>
+        <option value="5000m" selected>5000m</option>
+        <option value="10000m">10,000m</option>
+        <option value="hurdles_short">110m / 100m hurdles</option>
+        <option value="hurdles_400m">400m hurdles</option>
         <option value="marathon">Marathon</option>
-        <option value="half">Half marathon</option>
+        <option value="long_jump">Long jump</option>
+        <option value="high_jump">High jump</option>
       </select>
     </div>
     <div class="world-record-cards">
       <dl class="record-card men">
-        <dt class="label">Men's 5000m world record</dt>
-        <dd class="time">12:35.36</dd>
-        <dd class="meta">Joshua Cheptegei (UGA), 2020</dd>
+        <dt class="label" id="men-label">Men's 5000m world record</dt>
+        <dd class="time" id="men-time">12:35.36</dd>
+        <dd class="meta" id="men-meta">Joshua Cheptegei (UGA), 2020</dd>
       </dl>
       <dl class="record-card women">
-        <dt class="label">Women's 5000m world record</dt>
-        <dd class="time">13:58.06</dd>
-        <dd class="meta">Beatrice Chebet (KEN), 2025</dd>
+        <dt class="label" id="women-label">Women's 5000m world record</dt>
+        <dd class="time" id="women-time">13:58.06</dd>
+        <dd class="meta" id="women-meta">Beatrice Chebet (KEN), 2025</dd>
       </dl>
     </div>
   </div>
@@ -350,6 +359,91 @@
     <a href="/contact.html">contact</a>
   </div>
 </footer>
+
+<script>
+  var worldRecords = {
+    "100m": {
+      label: "100m",
+      men: { time: "9.58", meta: "Usain Bolt (JAM), 2009" },
+      women: { time: "10.49", meta: "Florence Griffith-Joyner (USA), 1988" }
+    },
+    "200m": {
+      label: "200m",
+      men: { time: "19.19", meta: "Usain Bolt (JAM), 2009" },
+      women: { time: "21.34", meta: "Florence Griffith-Joyner (USA), 1988" }
+    },
+    "400m": {
+      label: "400m",
+      men: { time: "43.03", meta: "Wayde van Niekerk (RSA), 2016" },
+      women: { time: "47.60", meta: "Marita Koch (GDR), 1985" }
+    },
+    "800m": {
+      label: "800m",
+      men: { time: "1:40.91", meta: "David Rudisha (KEN), 2012" },
+      women: { time: "1:53.28", meta: "Jarmila Kratochvílová (TCH), 1983" }
+    },
+    "1500m": {
+      label: "1500m",
+      men: { time: "3:26.00", meta: "Hicham El Guerrouj (MAR), 1998" },
+      women: { time: "3:48.68", meta: "Faith Kipyegon (KEN), 2025" }
+    },
+    "mile": {
+      label: "mile",
+      men: { time: "3:43.13", meta: "Hicham El Guerrouj (MAR), 1999" },
+      women: { time: "4:07.64", meta: "Faith Kipyegon (KEN), 2023" }
+    },
+    "5000m": {
+      label: "5000m",
+      men: { time: "12:35.36", meta: "Joshua Cheptegei (UGA), 2020" },
+      women: { time: "13:58.06", meta: "Beatrice Chebet (KEN), 2025" }
+    },
+    "10000m": {
+      label: "10,000m",
+      men: { time: "26:11.00", meta: "Joshua Cheptegei (UGA), 2020" },
+      women: { time: "28:54.14", meta: "Beatrice Chebet (KEN), 2024" }
+    },
+    "hurdles_short": {
+      label: "110m / 100m hurdles",
+      men: { time: "12.80", meta: "Aries Merritt (USA), 110mH, 2012" },
+      women: { time: "12.12", meta: "Tobi Amusan (NGR), 100mH, 2022" }
+    },
+    "hurdles_400m": {
+      label: "400m hurdles",
+      men: { time: "45.94", meta: "Karsten Warholm (NOR), 2021" },
+      women: { time: "50.37", meta: "Sydney McLaughlin-Levrone (USA), 2024" }
+    },
+    "marathon": {
+      label: "marathon",
+      men: { time: "1:59:30", meta: "Sabastian Sawe (KEN), 2026" },
+      women: { time: "2:09:56", meta: "Ruth Chepng'etich (KEN), 2024" }
+    },
+    "long_jump": {
+      label: "long jump",
+      men: { time: "8.95m", meta: "Mike Powell (USA), 1991" },
+      women: { time: "7.52m", meta: "Galina Chistyakova (URS), 1988" }
+    },
+    "high_jump": {
+      label: "high jump",
+      men: { time: "2.45m", meta: "Javier Sotomayor (CUB), 1993" },
+      women: { time: "2.09m", meta: "Stefka Kostadinova (BUL), 1987" }
+    }
+  };
+
+  function updateWorldRecord(eventKey) {
+    var record = worldRecords[eventKey];
+    if (!record) return;
+    document.getElementById("men-label").textContent = "Men's " + record.label + " world record";
+    document.getElementById("men-time").textContent = record.men.time;
+    document.getElementById("men-meta").textContent = record.men.meta;
+    document.getElementById("women-label").textContent = "Women's " + record.label + " world record";
+    document.getElementById("women-time").textContent = record.women.time;
+    document.getElementById("women-meta").textContent = record.women.meta;
+  }
+
+  document.getElementById("distance-select").addEventListener("change", function (e) {
+    updateWorldRecord(e.target.value);
+  });
+</script>
 
 </body>
 </html>
