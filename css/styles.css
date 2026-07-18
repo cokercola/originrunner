@@ -1,0 +1,425 @@
+/* OriginRunner — main stylesheet */
+
+:root {
+  --navy: #0B1F3A;
+  --navy-light: #13294F;
+  --blue: #5A9BFF;
+  --orange: #E8622C;
+  --body-bg: #FFFFFF;
+  --section-alt: #F5F6F8;
+  --text: #1A1F29;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--body-bg);
+  color: var(--text);
+}
+
+a { color: inherit; }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+.site-header {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.brand img {
+  height: 46px;
+  width: 46px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.wordmark {
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.wordmark .origin { color: #ffffff; }
+.wordmark .runner { color: var(--blue); }
+
+.tagline {
+  font-size: 9.5px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0.55;
+  margin-top: 2px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.main-nav a {
+  color: #dbe4f0;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.main-nav a:hover { color: #ffffff; }
+
+/* World record lookup */
+.world-record {
+  background: var(--navy-light);
+  padding: 22px 32px;
+}
+
+.world-record-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.world-record-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.world-record-label {
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 700;
+  margin: 0;
+}
+
+.world-record-select {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13.5px;
+  min-width: 140px;
+}
+
+.world-record-cards {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.record-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 14px 20px;
+  flex: 1;
+  margin: 0;
+}
+
+.record-card dt.label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+}
+
+.record-card dd.time {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 2px;
+}
+
+.record-card dd.meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.record-card.men dd.time { color: var(--navy); }
+.record-card.women dd.time { color: var(--orange); }
+
+.world-record-label { cursor: default; }
+
+/* Hero */
+.hero {
+  padding: 36px 32px 8px;
+  background: var(--body-bg);
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.zigzag {
+  width: 100%;
+  height: 32px;
+  display: block;
+}
+
+/* Section headers */
+.section {
+  padding: 36px 32px;
+}
+
+.section.alt { background: var(--section-alt); }
+.section.plain { background: var(--body-bg); }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.section-header .eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.view-all {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+/* News list */
+.news-item {
+  display: flex;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.news-item:last-child { border-bottom: none; }
+
+.news-thumb {
+  width: 96px;
+  height: 72px;
+  border-radius: 8px;
+  background: var(--section-alt);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.news-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.news-date {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.news-source {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.news-item h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.news-item p.excerpt {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Card grid (2x2) */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  min-height: 130px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-image {
+  width: 42%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #b9bfc9;
+  overflow: hidden;
+}
+
+.card-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.card-body {
+  flex: 1;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+.card-body h3 {
+  font-size: 14.5px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  line-height: 1.35;
+}
+
+.card-body p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* white cards (used on tinted sections) */
+.card.on-tint { background: #ffffff; }
+.card.on-tint .card-image { background: #EBEDF0; }
+
+/* gray cards (used on white sections) */
+.card.on-plain { background: var(--section-alt); }
+.card.on-plain .card-image { background: #E9EBEE; }
+
+/* Training plans */
+.plans-row {
+  display: flex;
+  gap: 16px;
+}
+
+.plan-card {
+  background: var(--body-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+}
+
+.plan-card h3 {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.plan-card p.weeks {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+}
+
+.plan-download {
+  display: inline-block;
+  background: var(--navy);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--navy);
+  padding: 22px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.footer-brand .runner { color: var(--blue); }
+
+.footer-links {
+  display: flex;
+  gap: 22px;
+}
+
+.footer-links a {
+  color: #c9d2e0;
+  font-size: 12.5px;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .main-nav { display: none; }
+  .card-grid { grid-template-columns: 1fr; }
+  .plans-row { flex-direction: column; }
+  .world-record-cards { flex-direction: column; }
+}
