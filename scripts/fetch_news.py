@@ -36,6 +36,24 @@ def get_image(entry):
     for link in getattr(entry, "links", []):
         if link.get("type", "").startswith("image"):
             return link.get("href")
+
+    for link in getattr(entry, "links", []):
+        if link.get("rel") == "enclosure" and link.get("type", "").startswith("image"):
+            return link.get("href")
+
+    html_blobs = []
+    if entry.get("summary"):
+        html_blobs.append(entry.get("summary"))
+    if entry.get("content"):
+        for c in entry.get("content"):
+            if c.get("value"):
+                html_blobs.append(c.get("value"))
+
+    for blob in html_blobs:
+        match = re.search(r'<img[^>]+src="([^"]+)"', blob)
+        if match:
+            return match.group(1)
+
     return None
 
 
