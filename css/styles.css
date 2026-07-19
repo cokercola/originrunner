@@ -301,7 +301,9 @@ a { color: inherit; }
   text-decoration: none;
   color: inherit;
 }
-
+.card.hidden-until-live {
+  display: none;
+}
 .card-image {
   width: 42%;
   flex-shrink: 0;
