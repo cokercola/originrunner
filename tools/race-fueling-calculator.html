@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Race Fueling Calculator — Carbs, Fluid & Sodium by Finish Time | OriginRunner</title>
+<meta name="description" content="Free race fueling calculator for half marathons, marathons, and ultras. Enter your goal finish time and get carb, fluid, and sodium targets per hour.">
+<meta name="keywords" content="race fueling calculator, marathon nutrition calculator, half marathon carb calculator, ultra running fueling, how many carbs during a marathon, race day hydration calculator">
+<meta name="robots" content="index, follow">
+<meta name="author" content="OriginRunner">
+<link rel="canonical" href="https://originrunner.com/tools/race-fueling-calculator.html">
+<link rel="icon" type="image/png" href="../assets/logo-icon-color.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OriginRunner">
+<meta property="og:title" content="Race Fueling Calculator — How Many Carbs Do You Actually Need?">
+<meta property="og:description" content="Enter your goal finish time and get race-day carb, fluid, and sodium targets — for 5Ks all the way up to 100-milers.">
+<meta property="og:url" content="https://originrunner.com/tools/race-fueling-calculator.html">
+<meta property="og:image" content="https://originrunner.com/assets/social-previewOR.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Race Fueling Calculator — How Many Carbs Do You Actually Need?">
+<meta name="twitter:description" content="Enter your goal finish time and get race-day carb, fluid, and sodium targets — for 5Ks all the way up to 100-milers.">
+<meta name="twitter:image" content="https://originrunner.com/assets/social-previewOR.png">
+
+<link rel="stylesheet" href="../css/styles.css">
+
+<!-- Structured data: tool identity -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "OriginRunner Race Fueling Calculator",
+  "url": "https://originrunner.com/tools/race-fueling-calculator.html",
+  "applicationCategory": "SportsApplication",
+  "operatingSystem": "Any (browser-based)",
+  "description": "Calculates per-hour carbohydrate, fluid, and sodium targets for runners based on expected finish time and race conditions.",
+  "isAccessibleForFree": true,
+  "publisher": {
+    "@type": "Organization",
+    "name": "OriginRunner",
+    "logo": "https://originrunner.com/assets/logo-icon-color.png"
+  }
+}
+</script>
+
+<!-- Structured data: breadcrumb -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://originrunner.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Race Fueling Calculator", "item": "https://originrunner.com/tools/race-fueling-calculator.html" }
+  ]
+}
+</script>
+
+<style>
+  .fuel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+  @media (max-width:520px){.fuel-grid{grid-template-columns:1fr;}}
+  .fuel-field{display:flex;flex-direction:column;gap:6px;}
+  .fuel-field label{font-size:13px;font-weight:600;color:var(--navy,#0B1F3A);}
+  .fuel-field select,.fuel-field input{border:1.5px solid #e4e8ee;border-radius:8px;padding:10px 12px;font-size:15px;font-family:inherit;}
+  .fuel-field select:focus,.fuel-field input:focus{outline:none;border-color:#5A9BFF;}
+  .fuel-field .hint{font-size:12px;color:#5c6b7a;}
+  .fuel-time-row{display:flex;gap:8px;}
+  .fuel-time-row input{width:100%;text-align:center;}
+  .fuel-checkbox-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid #e4e8ee;border-radius:8px;}
+  .fuel-checkbox-row input{width:16px;height:16px;margin:0;}
+  .fuel-checkbox-row label{font-size:14px;font-weight:500;margin:0;}
+  .fuel-btn{background:#0B1F3A;color:#fff;border:none;border-radius:8px;padding:13px 24px;font-size:15px;font-weight:700;cursor:pointer;width:100%;}
+  .fuel-btn:hover{background:#122a4d;}
+  .fuel-results{margin-top:28px;display:none;}
+  .fuel-results.show{display:block;}
+  .fuel-results-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:#5A9BFF;margin-bottom:12px;}
+  .fuel-result-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+  @media (max-width:520px){.fuel-result-cards{grid-template-columns:1fr;}}
+  .fuel-result-card{background:#f7f9fc;border:1px solid #e4e8ee;border-left:4px solid #E8622C;border-radius:8px;padding:16px;}
+  .fuel-result-card .num{font-size:24px;font-weight:800;color:#0B1F3A;line-height:1.1;}
+  .fuel-result-card .rlabel{margin-top:6px;font-size:13px;font-weight:600;}
+  .fuel-result-card .sub{font-size:12px;color:#5c6b7a;margin-top:2px;}
+  .fuel-note{border-left:3px solid #5A9BFF;padding:10px 16px;background:#f0f5ff;font-size:14px;color:#0B1F3A;border-radius:0 6px 6px 0;margin-bottom:16px;}
+  .fuel-disclaimer{font-size:12px;color:#5c6b7a;line-height:1.6;border-top:1px solid #e4e8ee;padding-top:14px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="brand">
+    <img src="../assets/logo-icon.png" alt="OriginRunner logo">
+    <div class="brand-text">
+      <span class="wordmark"><span class="origin">ORIGIN</span><span class="runner">RUNNER</span></span>
+      <span class="tagline">Every mile has a start</span>
+    </div>
+  </a>
+  <nav class="main-nav">
+    <a href="/#run-news">news</a>
+    <a href="/#run-life">the long run</a>
+    <a href="/#product-test">reviews</a>
+    <a href="/#food-plans">food</a>
+    <a href="/#training-plans">training plans</a>
+    <a href="/tools/race-fueling-calculator.html">fuel calculator</a>
+  </nav>
+</header>
+
+<main>
+<article class="article">
+  <p class="breadcrumb"><a href="/">Home</a> / <a href="/#food-plans">Food &amp; fueling</a> / Race Fueling Calculator</p>
+
+  <header class="article-header">
+    <h1>Race Fueling Calculator</h1>
+    <p class="article-dek">Enter your goal finish time and get carb, fluid, and sodium targets per hour — tuned for everything from a 5K to a 100-miler.</p>
+  </header>
+
+  <div class="fuel-grid">
+    <div class="fuel-field">
+      <label for="distance">Race distance</label>
+      <select id="distance">
+        <option value="5">5K</option>
+        <option value="10">10K</option>
+        <option value="21.1" selected>Half marathon</option>
+        <option value="42.2">Marathon</option>
+        <option value="50k">50K</option>
+        <option value="50m">50 miles</option>
+        <option value="100k">100K</option>
+        <option value="100m">100 miles</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+
+    <div class="fuel-field" id="customDistanceField" style="display:none;">
+      <label for="customDistance">Distance (miles)</label>
+      <input type="number" id="customDistance" min="1" step="0.1" placeholder="e.g. 31">
+    </div>
+
+    <div class="fuel-field">
+      <label>Expected finish time</label>
+      <div class="fuel-time-row">
+        <input type="number" id="hours" min="0" max="48" placeholder="Hrs" aria-label="Hours">
+        <input type="number" id="minutes" min="0" max="59" placeholder="Min" aria-label="Minutes">
+      </div>
+      <span class="hint">Use your goal or realistic estimate — this drives everything below</span>
+    </div>
+
+    <div class="fuel-field">
+      <label for="weight">Body weight (optional)</label>
+      <input type="number" id="weight" min="0" placeholder="lbs">
+      <span class="hint">Improves fluid/sodium precision, not required</span>
+    </div>
+
+    <div class="fuel-field">
+      <label for="conditions">Conditions</label>
+      <select id="conditions">
+        <option value="cool">Cool (under 60°F)</option>
+        <option value="mild" selected>Mild (60–75°F)</option>
+        <option value="hot">Hot / humid (75°F+)</option>
+      </select>
+    </div>
+
+    <div class="fuel-checkbox-row">
+      <input type="checkbox" id="saltySweater">
+      <label for="saltySweater">I'm a heavy/salty sweater (visible salt lines on skin/clothes)</label>
+    </div>
+  </div>
+
+  <button class="fuel-btn" onclick="calculate()">Calculate my fueling plan</button>
+
+  <div class="fuel-results" id="results">
+    <p class="fuel-results-title">Per-hour targets</p>
+    <div class="fuel-result-cards">
+      <div class="fuel-result-card">
+        <div class="num" id="carbsOut">–</div>
+        <div class="rlabel">Carbs / hour</div>
+        <div class="sub" id="carbsSub"></div>
+      </div>
+      <div class="fuel-result-card">
+        <div class="num" id="fluidOut">–</div>
+        <div class="rlabel">Fluid / hour</div>
+        <div class="sub" id="fluidSub"></div>
+      </div>
+      <div class="fuel-result-card">
+        <div class="num" id="sodiumOut">–</div>
+        <div class="rlabel">Sodium / hour</div>
+        <div class="sub" id="sodiumSub"></div>
+      </div>
+    </div>
+
+    <p class="fuel-note" id="totalSummary"></p>
+    <div class="fuel-disclaimer" id="disclaimerText"></div>
+  </div>
+
+  <p class="pull-quote" style="margin-top:32px;">Pair this with a real fueling strategy — check out our <a href="/#food-plans">food &amp; fueling section</a> for recipes to test in training before race day.</p>
+</article>
+</main>
+
+<footer class="site-footer">
+  <span class="footer-brand">ORIGIN<span class="runner">RUNNER</span></span>
+  <div class="footer-links">
+    <a href="/about.html">about</a>
+    <a href="/privacy.html">privacy</a>
+    <a href="/terms.html">terms</a>
+    <a href="/contact.html">contact</a>
+  </div>
+</footer>
+
+<script>
+const distanceSelect = document.getElementById('distance');
+const customField = document.getElementById('customDistanceField');
+
+distanceSelect.addEventListener('change', () => {
+  customField.style.display = distanceSelect.value === 'custom' ? 'flex' : 'none';
+});
+
+function calculate(){
+  const hrsInput = parseFloat(document.getElementById('hours').value) || 0;
+  const minInput = parseFloat(document.getElementById('minutes').value) || 0;
+  const durationHours = hrsInput + (minInput / 60);
+
+  if (durationHours <= 0){
+    alert("Enter your expected finish time first.");
+    return;
+  }
+
+  const weightLbs = parseFloat(document.getElementById('weight').value) || null;
+  const conditions = document.getElementById('conditions').value;
+  const saltySweater = document.getElementById('saltySweater').checked;
+
+  let carbLow, carbHigh, carbNote;
+  if (durationHours < 1.25){
+    carbLow = 0; carbHigh = 30;
+    carbNote = "Optional at this distance — most runners don't need mid-race carbs under ~75 minutes.";
+  } else if (durationHours <= 2.5){
+    carbLow = 30; carbHigh = 60;
+    carbNote = "Standard range for efforts in the 1.25–2.5 hour window.";
+  } else {
+    carbLow = 60; carbHigh = 90;
+    carbNote = "Upper end (75–90g) requires a gut trained on multiple carb sources (glucose + fructose) — don't try it cold on race day.";
+  }
+
+  let fluidLow, fluidHigh;
+  if (conditions === 'cool'){ fluidLow = 400; fluidHigh = 550; }
+  else if (conditions === 'mild'){ fluidLow = 500; fluidHigh = 700; }
+  else { fluidLow = 600; fluidHigh = 850; }
+
+  if (weightLbs){
+    const weightKg = weightLbs / 2.205;
+    const perKgLow = weightKg * 5;
+    const perKgHigh = weightKg * 8;
+    fluidLow = Math.round((fluidLow + perKgLow) / 2);
+    fluidHigh = Math.round((fluidHigh + perKgHigh) / 2);
+  }
+
+  let sodiumLow, sodiumHigh;
+  if (conditions === 'cool'){ sodiumLow = 300; sodiumHigh = 450; }
+  else if (conditions === 'mild'){ sodiumLow = 400; sodiumHigh = 600; }
+  else { sodiumLow = 500; sodiumHigh = 700; }
+
+  if (saltySweater){
+    sodiumLow += 200;
+    sodiumHigh += 300;
+  }
+
+  document.getElementById('carbsOut').textContent = `${carbLow}–${carbHigh}g`;
+  document.getElementById('carbsSub').textContent = carbNote;
+
+  document.getElementById('fluidOut').textContent = `${fluidLow}–${fluidHigh}ml`;
+  document.getElementById('fluidSub').textContent = `≈ ${(fluidLow/240).toFixed(1)}–${(fluidHigh/240).toFixed(1)} cups per hour`;
+
+  document.getElementById('sodiumOut').textContent = `${sodiumLow}–${sodiumHigh}mg`;
+  document.getElementById('sodiumSub').textContent = saltySweater ? "Adjusted up for heavy sweat/salt loss" : "Typical range for these conditions";
+
+  const totalCarbLow = Math.round(carbLow * durationHours);
+  const totalCarbHigh = Math.round(carbHigh * durationHours);
+  const totalFluidL = ((fluidLow + fluidHigh) / 2 * durationHours / 1000).toFixed(1);
+
+  document.getElementById('totalSummary').textContent =
+    `Over ${hrsInput ? hrsInput + "h " : ""}${minInput}m of racing, that's roughly ${totalCarbLow}–${totalCarbHigh}g of carbs total and about ${totalFluidL}L of fluid — split across gels, chews, real food, and aid stations however sits best with your stomach.`;
+
+  document.getElementById('disclaimerText').textContent =
+    "These are general sports-nutrition ranges, not individual medical or dietary advice — gut tolerance, sweat rate, and heat acclimation vary a lot person to person. Always test your fueling plan in training long before race day, and talk to a sports dietitian for a plan dialed in to you.";
+
+  document.getElementById('results').classList.add('show');
+}
+</script>
+
+</body>
+</html>
