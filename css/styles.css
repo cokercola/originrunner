@@ -617,3 +617,21 @@ a { color: inherit; }
   .plans-row { flex-direction: column; }
   .world-record-cards { flex-direction: column; }
 }
+/* --- Listing page cards: hover lift + real photo support --- */
+/* Scoped to .listing-card / .listing-image only - does not touch */
+/* .card / .card-grid, so the homepage is unaffected.             */
+
+.listing-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.listing-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
