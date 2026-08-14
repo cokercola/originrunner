@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "title": "Sheet pan salmon with potatoes &amp; asparagus",
+      "blurb": "Blackened salmon, roasted low and slow, one pan",
+      "url": "food/salmon-sheet-pan-potatoes-asparagus.html",
+      "image": "assets/salmon-sheet-pan-tray.jpg",
+      "tag": "dinner",
+      "tag_color": "#E8622C",
+      "date": "2026-07-28"
+    },
+    {
+      "title": "Curried sweet potato &amp; chickpea bowls",
+      "blurb": "One sheet pan, minimal dishes, big flavor",
+      "url": "food/curried-sweet-potato-chickpea-sheet-pan.html",
+      "image": "assets/curry-sheet-pan-bowls.png",
+      "tag": "recovery",
+      "tag_color": "#E8622C",
+      "date": "2026-07-10"
+    },
+    {
+      "title": "Roasted zucchini, chickpea &amp; artichoke pasta salad",
+      "blurb": "Light but filling, swap the chickpeas for salmon, chicken, or tofu",
+      "url": "food/roasted-zucchini-chickpea-pasta-salad.html",
+      "image": "assets/zucchini-chickpea-pasta-salad-mealprep.png",
+      "tag": "meal prep",
+      "tag_color": "#E8622C",
+      "date": "2026-06-20"
+    },
+    {
+      "title": "Baked turkey meatballs with potatoes &amp; green beans",
+      "blurb": "35-40g protein, splits into two meals with almost no extra effort",
+      "url": "food/turkey-meatballs-potatoes-green-beans.html",
+      "image": "assets/turkey-meatballs-mealprep.png",
+      "tag": "meal prep",
+      "tag_color": "#E8622C",
+      "date": "2026-06-05"
+    },
+    {
+      "title": "Chicken sweet potato power bowls",
+      "blurb": "42g protein, glycogen refuel, ready in 45 minutes",
+      "url": "food/chicken-sweet-potato-power-bowls.html",
+      "image": "assets/power-bowls-hero.jpg",
+      "tag": "recovery",
+      "tag_color": "#E8622C",
+      "date": "2026-05-15"
+    }
+  ]
+}

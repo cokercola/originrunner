@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "title": "Maurten Gel 100 review",
+      "blurb": "Nearly tasteless, jelly-thick, and easy on the stomach",
+      "url": "fuel/maurten-gel-100-review.html",
+      "image": "assets/maurten-gel-100-lineup.png",
+      "tag": "gels",
+      "tag_color": "#5A9BFF",
+      "date": "2026-08-14"
+    },
+    {
+      "title": "SABRE Runner Pepper Gel review",
+      "blurb": "Hands-free protection, tested after a dog attack",
+      "url": "safety/sabre-runner-pepper-gel-review.html",
+      "image": "assets/sabre-runner-1.png",
+      "tag": "safety",
+      "tag_color": "#D9455F",
+      "date": "2026-07-05"
+    },
+    {
+      "title": "Mount to Coast H1 review",
+      "blurb": "A hybrid trail/road runner worth the hype",
+      "url": "shoes/mount-to-coast-h1-review.html",
+      "image": "assets/mount-to-coast-h1-1.jpg",
+      "tag": "shoes",
+      "tag_color": "#5A9BFF",
+      "date": "2026-06-15"
+    }
+  ]
+}
