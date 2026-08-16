@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://originrunner.com/sitemap.xml
+Disallow: /youtube-pipeline-privacy.html
