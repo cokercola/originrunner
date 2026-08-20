@@ -56,6 +56,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://originrunner.com/food/teriyaki-beef-rice-bowls.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://originrunner.com/food/chicken-sweet-potato-power-bowls.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
