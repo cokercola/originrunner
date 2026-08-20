@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "Teriyaki beef &amp; rice bowls",
+      "blurb": "Short ingredient list, ~40g protein, reheats beautifully",
+      "url": "food/teriyaki-beef-rice-bowls.html",
+      "image": "assets/teriyaki-beef-bowl-hero.png",
+      "tag": "recovery",
+      "tag_color": "#E8622C",
+      "date": "2026-08-19"
+    },
+    {
       "title": "Sheet pan salmon with potatoes &amp; asparagus",
       "blurb": "Blackened salmon, roasted low and slow, one pan",
       "url": "food/salmon-sheet-pan-potatoes-asparagus.html",
