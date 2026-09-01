@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "Sausage, sweet potato, Brussels sprouts &amp; apple sheet pan",
+      "blurb": "Dijon-maple glaze, served over couscous or rice",
+      "url": "food/sausage-sweet-potato-brussels-apple-sheet-pan.html",
+      "image": "assets/sausage-sweet-potato-sheet-pan-hero.png",
+      "tag": "dinner",
+      "tag_color": "#E8622C",
+      "date": "2026-08-31"
+    },
+    {
       "title": "Teriyaki beef &amp; rice bowls",
       "blurb": "Short ingredient list, ~40g protein, reheats beautifully",
       "url": "food/teriyaki-beef-rice-bowls.html",
